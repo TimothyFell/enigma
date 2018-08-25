@@ -36,6 +36,31 @@ class Enigma
     input_key[3..4].join.to_i
   end
 
+# take date in format 20YY-MM-DD to DDMMYY
+  def reformat_day
+    Date.today.day.to_s.rjust(2, "0")
+  end
+
+  def reformat_month
+    Date.today.month.to_s.rjust(2, "0")
+  end
+
+  def reformat_year
+    Date.today.year.to_s[2..3]
+  end
+
+  def convert_date
+    (reformat_day + reformat_month + reformat_year).to_i
+  end
+
+  def square_date
+    (convert_date ** 2)
+  end
+
+  def last_4
+    square_date.digits.reverse[-4..-1]
+  end
+
   # def create_key
 # take array and assign each A..D variable to 2 digit-integer
 

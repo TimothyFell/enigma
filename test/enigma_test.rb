@@ -43,7 +43,6 @@ def test_it_can_generate_key_a
   test_key_array = e.create_key_array("12345")
   assert_equal(12, e.create_key_a(test_key_array))
   assert_instance_of(Integer, e.create_key_a)
-  assert_equal(2, e.create_key_a.digits.count)
 end
 
 def test_it_can_generate_key_b
@@ -51,7 +50,6 @@ def test_it_can_generate_key_b
   test_key_array = e.create_key_array("12345")
   assert_equal(23, e.create_key_b(test_key_array))
   assert_instance_of(Integer, e.create_key_b)
-  assert_equal(2, e.create_key_b.digits.count)
 end
 
 def test_it_can_generate_key_c
@@ -59,7 +57,6 @@ def test_it_can_generate_key_c
   test_key_array = e.create_key_array("12345")
   assert_equal(34, e.create_key_c(test_key_array))
   assert_instance_of(Integer, e.create_key_c)
-  assert_equal(2, e.create_key_c.digits.count)
 end
 
 def test_it_can_generate_key_d
@@ -67,7 +64,44 @@ def test_it_can_generate_key_d
   test_key_array = e.create_key_array("12345")
   assert_equal(45, e.create_key_d(test_key_array))
   assert_instance_of(Integer, e.create_key_d)
-  assert_equal(2, e.create_key_d.digits.count)
+end
+
+def test_it_can_reformat_day
+  e = Enigma.new
+  assert_instance_of(String, e.reformat_day)
+  assert_equal(2, e.reformat_day.length)
+end
+
+def test_it_can_reformat_month
+  e = Enigma.new
+  assert_instance_of(String, e.reformat_month)
+  assert_equal(2, e.reformat_month.length)
+end
+
+def test_it_can_reformat_year
+  e = Enigma.new
+  assert_instance_of(String, e.reformat_year)
+  assert_equal(2, e.reformat_year.length)
+end
+
+def test_it_can_convert_date_to_integer
+  e = Enigma.new
+  assert_instance_of(Integer, e.convert_date)
+  assert(e.convert_date.digits.count >= 5)
+  assert(e.convert_date.digits.count <= 6)
+end
+
+def test_it_can_square_integer_date
+  e = Enigma.new
+  assert_instance_of(Integer, e.square_date)
+  expected = Math.sqrt(e.square_date)
+  assert_equal(expected, e.convert_date)
+end
+
+def test_it_can_get_last_4_of_squared_date
+  e = Enigma.new
+  assert_instance_of(Array, e.last_4)
+  assert_equal(4, e.last_4.count)
 end
 
 # this test will test the CEO method
