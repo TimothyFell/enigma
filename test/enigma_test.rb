@@ -35,6 +35,39 @@ def test_it_can_convert_key_number_to_array
   e = Enigma.new
   assert_instance_of(Array, e.create_key_array)
   assert_equal(5, e.create_key_array.count)
+  assert_equal(['1', '2', '3', '4', '5'], e.create_key_array("12345"))
+end
+
+def test_it_can_generate_key_a
+  e = Enigma.new
+  test_key_array = e.create_key_array("12345")
+  assert_equal(12, e.create_key_a(test_key_array))
+  assert_instance_of(Integer, e.create_key_a)
+  assert_equal(2, e.create_key_a.digits.count)
+end
+
+def test_it_can_generate_key_b
+  e = Enigma.new
+  test_key_array = e.create_key_array("12345")
+  assert_equal(23, e.create_key_b(test_key_array))
+  assert_instance_of(Integer, e.create_key_b)
+  assert_equal(2, e.create_key_b.digits.count)
+end
+
+def test_it_can_generate_key_c
+  e = Enigma.new
+  test_key_array = e.create_key_array("12345")
+  assert_equal(34, e.create_key_c(test_key_array))
+  assert_instance_of(Integer, e.create_key_c)
+  assert_equal(2, e.create_key_c.digits.count)
+end
+
+def test_it_can_generate_key_d
+  e = Enigma.new
+  test_key_array = e.create_key_array("12345")
+  assert_equal(45, e.create_key_d(test_key_array))
+  assert_instance_of(Integer, e.create_key_d)
+  assert_equal(2, e.create_key_d.digits.count)
 end
 
 # this test will test the CEO method

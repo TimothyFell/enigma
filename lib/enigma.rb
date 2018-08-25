@@ -1,5 +1,7 @@
 ## enigma.rb
 
+require 'pry'
+
 require 'date'
 
 class Enigma
@@ -14,13 +16,29 @@ class Enigma
   end
 
   # take in 5-digit number and transform into 4 2-digit keys (A-D)
-  def create_key_array
-    generate_key_number.chars
+  def create_key_array(key_nums = generate_key_number)
+    key_nums.chars
   end
 
-#   def create
+  def create_key_a(input_key = create_key_array)
+    input_key[0..1].join.to_i
+  end
+
+  def create_key_b(input_key = create_key_array)
+    input_key[1..2].join.to_i
+  end
+
+  def create_key_c(input_key = create_key_array)
+    input_key[2..3].join.to_i
+  end
+
+  def create_key_d(input_key = create_key_array)
+    input_key[3..4].join.to_i
+  end
+
+  # def create_key
 # take array and assign each A..D variable to 2 digit-integer
-#
+
 #   def reformat_date
 #     #take date in format 20YY-MM-DD to DDMMYY
 #   end
@@ -28,5 +46,5 @@ class Enigma
 #   def calculate_total_offsets
 #     #for each, A-D, add relevant key to offset
 #   end
-#
+
 end
