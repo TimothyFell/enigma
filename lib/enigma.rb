@@ -9,9 +9,9 @@ class Enigma
     @character_map = [*('a'..'z'), *('0'..'9'), ' ', '.', ',']
   end
 
-  # def generate_key_number
-  #  rand(10 ** 5).to_s.rjust(5, "0")
-  # end
+  def generate_key_number
+   rand(10 ** 5).to_s.rjust(5, "0")
+  end
   #
   # def calculate_key_values
   #   # take in 5-digit number and transform into 4 2-digit keys (A-D)

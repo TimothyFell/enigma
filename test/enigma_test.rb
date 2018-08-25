@@ -20,6 +20,13 @@ def test_it_has_character_map
   assert_equal(expected, actual)
 end
 
+def test_it_can_generate_random_key_number
+  e = Enigma.new
+  assert(e.generate_key_number)
+  expected = e.generate_key_number
+  refute_equal(expected, e.generate_key_number)
+end
+
 # this test will test the CEO method
   # def test_it_encrypts
   #
