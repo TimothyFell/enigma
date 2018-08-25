@@ -104,6 +104,13 @@ def test_it_can_get_last_4_of_squared_date
   assert_equal(4, e.last_4.count)
 end
 
+def test_it_can_total_offsets
+  e = Enigma.new
+  assert_instance_of(Array, e.total_offsets)
+  assert_equal(4, e.total_offsets.count)
+end
+
+
 # this test will test the CEO method
   # def test_it_encrypts
   #

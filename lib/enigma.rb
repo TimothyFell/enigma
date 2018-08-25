@@ -36,7 +36,6 @@ class Enigma
     input_key[3..4].join.to_i
   end
 
-# take date in format 20YY-MM-DD to DDMMYY
   def reformat_day
     Date.today.day.to_s.rjust(2, "0")
   end
@@ -61,15 +60,20 @@ class Enigma
     square_date.digits.reverse[-4..-1]
   end
 
-  # def create_key
-# take array and assign each A..D variable to 2 digit-integer
+  def total_offsets
+    key_array = [create_key_a, create_key_b, create_key_c, create_key_d]
+    zipped_key = last_4.zip(key_array)
+    zipped_key.map do |x|
+      x.sum
+    end
+  end
+
+##during encryption, A..B will be called using indexes 0..4 from zipped_key array.
 
 #   def reformat_date
 #     #take date in format 20YY-MM-DD to DDMMYY
 #   end
 #
-#   def calculate_total_offsets
-#     #for each, A-D, add relevant key to offset
-#   end
+
 
 end
