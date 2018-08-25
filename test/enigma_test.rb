@@ -20,11 +20,21 @@ def test_it_has_character_map
   assert_equal(expected, actual)
 end
 
+# it might be worth noting that, VERY rarely, the final assertion of this test will fail.
 def test_it_can_generate_random_key_number
   e = Enigma.new
   assert(e.generate_key_number)
+  assert_instance_of(String, e.generate_key_number)
+  assert_equal(5, e.generate_key_number.length)
   expected = e.generate_key_number
   refute_equal(expected, e.generate_key_number)
+  assert_instance_of(Integer, e.generate_key_number.to_i)
+end
+
+def test_it_can_convert_key_number_to_array
+  e = Enigma.new
+  assert_instance_of(Array, e.create_key_array)
+  assert_equal(5, e.create_key_array.count)
 end
 
 # this test will test the CEO method

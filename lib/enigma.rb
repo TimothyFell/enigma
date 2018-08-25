@@ -12,20 +12,21 @@ class Enigma
   def generate_key_number
    rand(10 ** 5).to_s.rjust(5, "0")
   end
-  #
-  # def calculate_key_values
-  #   # take in 5-digit number and transform into 4 2-digit keys (A-D)
-  # end
-  #
-  # def reformat_date
-  #   #take date in format 20YY-MM-DD to DDMMYY
-  # end
-  #
-  # def calculate_total_offsets
-  #   #for each, A-D, add relevant key to offset
-  # end
 
+  # take in 5-digit number and transform into 4 2-digit keys (A-D)
+  def create_key_array
+    generate_key_number.chars
+  end
+
+#   def create
+# take array and assign each A..D variable to 2 digit-integer
+#
+#   def reformat_date
+#     #take date in format 20YY-MM-DD to DDMMYY
+#   end
+#
+#   def calculate_total_offsets
+#     #for each, A-D, add relevant key to offset
+#   end
+#
 end
-
-e = Enigma.new
-p e.character_map
