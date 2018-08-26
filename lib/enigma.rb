@@ -15,19 +15,20 @@ class Enigma
 
   def encrypt(message, key = generate_key_number, date = Date.today)
     @key_chars = key.chars
+    @date = date
     # take the key/date and return total offsets
-    total_offsets(key, date)
+    rotate_values = total_offsets(@key_chars, @date)
     # break message into array of characters, then into subarrays
+    subarrays = msg_subarrays(message)
     # translate the message characters into index #s from @character_map
     # add total offsets to respective index #s
     # call rotated/new index numbers from @character_map
+    translated_array = translate_array(subarrays)
     # flatten, then join these to return encrypted message
+    translated_array.flatten.join
   end
 
-  # turn message into array > split("") > each_string(4).to_a
-
   def total_offsets(key, date)
-    # create_key_array(key)
     key_array = [create_key_a, create_key_b, create_key_c, create_key_d]
     zipped_key = last_4(date).zip(key_array)
     zipped_key.map do |x|
@@ -75,18 +76,27 @@ class Enigma
     (convert_date ** 2)
   end
 
-  def last_4
+  def last_4(date = Date.new(1987, 7, 31))
     square_date.digits.reverse[-4..-1]
   end
 
+  def msg_subarrays(message)
+    message.chars.each_slice(4).to_a
+  end
 
+  def translate_array(sub_arrays)
+    sub_arrays.map do |subarray|
+      translate_subarrays(subarray)
+    end
+  end
 
-##during encryption, A..B will be called using indexes 0..4 from zipped_key array.
-
-#   def reformat_date
-#     #take date in format 20YY-MM-DD to DDMMYY
-#   end
-#
-
+  def translate_subarrays(subarray)
+    subarray.map.with_index do |char, i|
+      orig_index = @character_map.find_index(char)
+      # rotated_index = orig_index + total_offsets(@key_chars, @date)[i]
+      rotated_map = @character_map.rotate(total_offsets(@key_chars, @date)[i])
+      rotated_map[orig_index]
+    end
+  end
 
 end
