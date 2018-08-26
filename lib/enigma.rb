@@ -6,7 +6,6 @@ require 'date'
 
 class Enigma
     attr_reader :character_map
-    attr_writer :key_chars
 
   def initialize
     @character_map = [*('a'..'z'), *('0'..'9'), ' ', '.', ',']
@@ -16,15 +15,11 @@ class Enigma
   def encrypt(message, key = generate_key_number, date = Date.today)
     @key_chars = key.chars
     @date = date
-    # take the key/date and return total offsets
+
     rotate_values = total_offsets(@key_chars, @date)
-    # break message into array of characters, then into subarrays
     subarrays = msg_subarrays(message)
-    # translate the message characters into index #s from @character_map
-    # add total offsets to respective index #s
-    # call rotated/new index numbers from @character_map
     translated_array = translate_array(subarrays)
-    # flatten, then join these to return encrypted message
+
     translated_array.flatten.join
   end
 
@@ -36,10 +31,30 @@ class Enigma
     end
   end
 
+  def msg_subarrays(message)
+    message.chars.each_slice(4).to_a
+  end
+
+  def translate_array(sub_arrays)
+    sub_arrays.map do |subarray|
+      translate_subarrays(subarray)
+    end
+  end
+
+  def translate_subarrays(subarray)
+    subarray.map.with_index do |char, i|
+      orig_index = @character_map.find_index(char)
+      rotated_map = @character_map.rotate(total_offsets(@key_chars, @date)[i])
+      rotated_map[orig_index]
+    end
+  end
+
+  # This is the random key generator
   def generate_key_number
    rand(10 ** 5).to_s.rjust(5, "0")
   end
 
+  # These methods derive our respective key rotations
   def create_key_a
     @key_chars[0..1].join.to_i
   end
@@ -56,20 +71,23 @@ class Enigma
     @key_chars[3..4].join.to_i
   end
 
-  def reformat_day(date = Date.today)
-    date.day.to_s.rjust(2, "0")
+  # These methods manipulate the date object into usable data-types
+  def reformat_day
+    @date.day.to_s.rjust(2, "0")
   end
 
-  def reformat_month(date = Date.today)
-    date.month.to_s.rjust(2, "0")
+  def reformat_month
+    @date.month.to_s.rjust(2, "0")
   end
 
-  def reformat_year(date = Date.today)
-    date.year.to_s[2..3]
+  def reformat_year
+    @date.year.to_s[2..3]
   end
 
+  # These methods calculate the additional date offsets
   def convert_date
     (reformat_day + reformat_month + reformat_year).to_i
+    # binding.pry
   end
 
   def square_date
@@ -78,25 +96,6 @@ class Enigma
 
   def last_4(date = Date.new(1987, 7, 31))
     square_date.digits.reverse[-4..-1]
-  end
-
-  def msg_subarrays(message)
-    message.chars.each_slice(4).to_a
-  end
-
-  def translate_array(sub_arrays)
-    sub_arrays.map do |subarray|
-      translate_subarrays(subarray)
-    end
-  end
-
-  def translate_subarrays(subarray)
-    subarray.map.with_index do |char, i|
-      orig_index = @character_map.find_index(char)
-      # rotated_index = orig_index + total_offsets(@key_chars, @date)[i]
-      rotated_map = @character_map.rotate(total_offsets(@key_chars, @date)[i])
-      rotated_map[orig_index]
-    end
   end
 
 end
