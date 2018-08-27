@@ -7,7 +7,8 @@ require 'date'
 class Enigma
     attr_reader :character_map,
                 :date,
-                :key_chars
+                :key_chars,
+                :key
 
   def initialize
     @character_map = [*('a'..'z'), *('0'..'9'), ' ', '.', ',']
@@ -15,6 +16,7 @@ class Enigma
   end
 
   def encrypt(message, key = generate_key_number, date = Date.today)
+    @key = key
     @key_chars = key.chars
     @date = date
 
