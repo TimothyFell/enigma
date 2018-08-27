@@ -116,4 +116,23 @@ class EnigmaTest < Minitest::Test
     refute_equal(['1', '2', '3', '4', '5'], e_2.key_chars)
   end
 
+  def test_negative_total_offsets
+    e = Enigma.new
+    e.decrypt("b4t8", "12345", Date.new(1987, 7, 31))
+    actual = e.negative_total_offsets
+    assert_equal([-21, -26, -40, -54], actual)
+  end
+
+  def test_it_decrypts
+    e = Enigma.new
+    actual = e.decrypt("b4t8", "12345", Date.new(1987, 7, 31))
+    assert_equal("test", actual)
+  end
+
+  def test_it_decrypts_without_date
+    e = Enigma.new
+    actual = e.decrypt(e.encrypt("test", "12345"), "12345")
+    assert_equal("test", actual)
+  end
+
 end
