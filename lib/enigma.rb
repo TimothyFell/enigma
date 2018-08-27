@@ -18,11 +18,28 @@ class Enigma
     @key_chars = key.chars
     @date = date
 
-    rotate_values = total_offsets(@key_chars, @date)
+    @rotate_values = total_offsets(@key_chars, @date)
     subarrays = msg_subarrays(message)
     translated_array = translate_array(subarrays)
 
     translated_array.flatten.join
+  end
+
+  def decrypt(coded_msg, key, date = Date.today)
+    @key_chars = key.chars
+    @date = date
+
+    @rotate_values = negative_total_offsets
+    subarrays = msg_subarrays(coded_msg)
+    translated_array = translate_array(subarrays)
+
+    translated_array.flatten.join
+  end
+
+  def negative_total_offsets
+    total_offsets(@key_chars, @date).map do |offset|
+      -offset
+    end
   end
 
   def total_offsets(key, date)
@@ -46,7 +63,7 @@ class Enigma
   def translate_subarrays(subarray)
     subarray.map.with_index do |char, i|
       orig_index = @character_map.find_index(char)
-      rotated_map = @character_map.rotate(total_offsets(@key_chars, @date)[i])
+      rotated_map = @character_map.rotate(@rotate_values[i])
       rotated_map[orig_index]
     end
   end
