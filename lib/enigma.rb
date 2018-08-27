@@ -5,7 +5,9 @@ require 'pry'
 require 'date'
 
 class Enigma
-    attr_reader :character_map
+    attr_reader :character_map,
+                :date,
+                :key_chars
 
   def initialize
     @character_map = [*('a'..'z'), *('0'..'9'), ' ', '.', ',']
@@ -87,7 +89,6 @@ class Enigma
   # These methods calculate the additional date offsets
   def convert_date
     (reformat_day + reformat_month + reformat_year).to_i
-    # binding.pry
   end
 
   def square_date
