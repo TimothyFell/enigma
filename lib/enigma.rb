@@ -34,7 +34,7 @@ class Enigma
   end
 
   def msg_subarrays(message)
-    message.chars.each_slice(4).to_a
+    message.downcase.chars.each_slice(4).to_a
   end
 
   def translate_array(sub_arrays)
@@ -73,22 +73,9 @@ class Enigma
     @key_chars[3..4].join.to_i
   end
 
-  # These methods manipulate the date object into usable data-types
-  def reformat_day
-    @date.day.to_s.rjust(2, "0")
-  end
-
-  def reformat_month
-    @date.month.to_s.rjust(2, "0")
-  end
-
-  def reformat_year
-    @date.year.to_s[2..3]
-  end
-
   # These methods calculate the additional date offsets
   def convert_date
-    (reformat_day + reformat_month + reformat_year).to_i
+    (@date.strftime('%d') + @date.strftime('%m') + @date.strftime('%y')).to_i
   end
 
   def square_date

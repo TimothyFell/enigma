@@ -59,30 +59,6 @@ class EnigmaTest < Minitest::Test
     assert_instance_of(Integer, e.create_key_d)
   end
 
-  def test_it_can_reformat_day
-    e = Enigma.new
-    e.encrypt("test", "12345", Date.new(1987, 7, 31))
-    assert_instance_of(String, e.reformat_day)
-    assert_equal(2, e.reformat_day.length)
-    assert_equal("31", e.reformat_day)
-  end
-
-  def test_it_can_reformat_month
-    e = Enigma.new
-    e.encrypt("test", "12345", Date.new(1987, 7, 31))
-    assert_instance_of(String, e.reformat_month)
-    assert_equal(2, e.reformat_month.length)
-    assert_equal("07", e.reformat_month)
-  end
-
-  def test_it_can_reformat_year
-    e = Enigma.new
-    e.encrypt("test", "12345", Date.new(1987, 7, 31))
-    assert_instance_of(String, e.reformat_year)
-    assert_equal(2, e.reformat_year.length)
-    assert_equal("87", e.reformat_year)
-  end
-
   def test_it_can_convert_date_to_integer
     e = Enigma.new
     e.encrypt("test", "12345", Date.new(1987, 7, 31))
@@ -126,6 +102,18 @@ class EnigmaTest < Minitest::Test
     assert_instance_of(String, actual)
     assert_equal(e.date, Date.today)
     refute_equal(['1', '2', '3', '4', '5'], e.key_chars)
+  end
+
+  def test_it_encrypts_with_caps
+    e = Enigma.new
+    actual = e.encrypt("TEST", "12345", Date.new(1987, 7, 31))
+    assert_equal("b4t8", actual)
+    e_2 = Enigma.new
+    actual = e_2.encrypt("TEST")
+    assert_equal(4, actual.length)
+    assert_instance_of(String, actual)
+    assert_equal(e_2.date, Date.today)
+    refute_equal(['1', '2', '3', '4', '5'], e_2.key_chars)
   end
 
 end
