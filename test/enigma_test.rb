@@ -62,6 +62,7 @@ class EnigmaTest < Minitest::Test
     assert_instance_of(Integer, e.convert_date)
     assert(e.convert_date.digits.count >= 5)
     assert(e.convert_date.digits.count <= 6)
+    assert_equal(310787, e.convert_date)
   end
 
   def test_it_can_square_integer_date
@@ -70,6 +71,7 @@ class EnigmaTest < Minitest::Test
     assert_instance_of(Integer, e.square_date)
     expected = Math.sqrt(e.square_date)
     assert_equal(expected, e.convert_date)
+    assert_equal(96588559369, e.square_date)
   end
 
   def test_it_can_get_last_4_of_squared_date
@@ -77,6 +79,7 @@ class EnigmaTest < Minitest::Test
     e.encrypt("test", "12345", Date.new(1987, 7, 31))
     assert_instance_of(Array, e.last_4)
     assert_equal(4, e.last_4.count)
+    assert_equal([9,3,6,9], e.last_4)
   end
 
   def test_it_can_total_offsets
@@ -84,6 +87,7 @@ class EnigmaTest < Minitest::Test
     e.encrypt("test", "12345", Date.new(1987, 7, 31))
     assert_instance_of(Array, e.total_offsets("12345", Date.new(1987, 7, 31)))
     assert_equal(4, e.total_offsets("12345", Date.new(1987, 7, 31)).count)
+    assert_equal([21, 26, 40, 54], e.total_offsets("12345", Date.new(1987, 7, 31)))
   end
 
   def test_it_encrypts
