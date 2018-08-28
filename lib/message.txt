@@ -1,1 +1,3 @@
-This is the test message text 1 ..end..
+Translation test with speci'al characters!@# \?><:;
+0987654321...
+BLASTOFF!!!..end..

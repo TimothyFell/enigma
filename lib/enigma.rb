@@ -11,7 +11,21 @@ class Enigma
                 :key
 
   def initialize
-    @character_map = [*('a'..'z'), *('0'..'9'), ' ', '.', ',']
+#I'd like to ask permission to use a shuffled character map.
+    @character_map = [
+      *("A".."Z"),
+      *("a".."z"),
+      *("0".."9"),
+      " ", ".", ",",
+      "!", "@", "#",
+      "$", "%", "^",
+      "&", "*", "(",
+      ")", "[", "]",
+      "<", ">", ";",
+      ":", "/", "?",
+      "|", "\\", "'",
+      "\n"
+    ]
     @key_chars = []
   end
 
