@@ -6,8 +6,8 @@ require 'pry'
 encrypted_filename, decrypted_filename, key, date = ARGV
 
 # open the files
-encrypted_file = open("./lib/#{encrypted_filename}", 'r')
-decrypted_file = open("./lib/#{decrypted_filename}", 'w')
+encrypted_file = open("./data/#{encrypted_filename}", 'r')
+decrypted_file = open("./data/#{decrypted_filename}", 'w')
 
 # get and store the coded_msg to be encrypted
 coded_msg = encrypted_file.read.strip

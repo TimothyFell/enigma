@@ -1,8 +1,9 @@
 ## enigma.rb
 
 require 'pry'
-
 require 'date'
+require './lib/key_maker'
+require './lib/offsets'
 
 class Enigma
     attr_reader :character_map,
@@ -11,7 +12,8 @@ class Enigma
                 :key
 
   def initialize
-    @key_chars = []
+    new_key = KeyMaker.new
+    @generated_key = new_key.generate_key_number
     @character_map = [
       *("A".."Z"),
       *("a".."z"),
@@ -28,12 +30,12 @@ class Enigma
     ]
   end
 
-  def encrypt(message, key = generate_key_number, date = Date.today)
+  def encrypt(message, key = @generated_key, date = Date.today)
     @key = key
     @key_chars = key.chars
     @date = date
-
-    @rotate_values = total_offsets(@key_chars, @date)
+    offsets = Offsets.new(@key_chars, @date)
+    @rotate_values = offsets.total_offsets
     subarrays = msg_subarrays(message)
     translated_array = translate_array(subarrays)
 
@@ -44,25 +46,12 @@ class Enigma
     @key_chars = key.chars
     @date = date
 
-    @rotate_values = negative_total_offsets
+    offsets = Offsets.new(@key_chars, @date)
+    @rotate_values = offsets.negative_total_offsets
     subarrays = msg_subarrays(coded_msg)
     translated_array = translate_array(subarrays)
 
     translated_array.flatten.join
-  end
-
-  def negative_total_offsets
-    total_offsets(@key_chars, @date).map do |offset|
-      -offset
-    end
-  end
-
-  def total_offsets(key, date)
-    key_array = [create_key_a, create_key_b, create_key_c, create_key_d]
-    zipped_key = last_4.zip(key_array)
-    zipped_key.map do |x|
-      x.sum
-    end
   end
 
   def msg_subarrays(message)
@@ -81,41 +70,6 @@ class Enigma
       rotated_map = @character_map.rotate(@rotate_values[i])
       rotated_map[orig_index]
     end
-  end
-
-  # This is the random key generator
-  def generate_key_number
-   rand(10 ** 5).to_s.rjust(5, "0")
-  end
-
-  # These methods derive our respective key rotations
-  def create_key_a
-    @key_chars[0..1].join.to_i
-  end
-
-  def create_key_b
-    @key_chars[1..2].join.to_i
-  end
-
-  def create_key_c
-    @key_chars[2..3].join.to_i
-  end
-
-  def create_key_d
-    @key_chars[3..4].join.to_i
-  end
-  
-  # These methods calculate the additional date offsets
-  def convert_date
-    (@date.strftime('%d') + @date.strftime('%m') + @date.strftime('%y')).to_i
-  end
-
-  def square_date
-    (convert_date ** 2)
-  end
-
-  def last_4
-    square_date.digits.reverse[-4..-1]
   end
 
 end
