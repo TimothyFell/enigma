@@ -4,6 +4,7 @@ require 'pry'
 require 'date'
 
 class DateOffsets
+  attr_reader :date
 
   def initialize(date)
     @date = date

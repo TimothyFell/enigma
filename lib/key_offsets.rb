@@ -4,6 +4,7 @@ require 'pry'
 require 'date'
 
 class KeyOffsets
+  attr_reader :key_chars
 
   def initialize(key_chars)
     @key_chars = key_chars
