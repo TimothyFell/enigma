@@ -11,8 +11,21 @@ class Enigma
                 :key
 
   def initialize
-    @character_map = [*('a'..'z'), *('0'..'9'), ' ', '.', ',']
     @key_chars = []
+    @character_map = [
+      *("A".."Z"),
+      *("a".."z"),
+      *("0".."9"),
+      " ", ".", ",",
+      "!", "@", "#",
+      "$", "%", "^",
+      "&", "*", "(",
+      ")", "[", "]",
+      "<", ">", ";",
+      ":", "/", "?",
+      "|", "'", "\\",
+      "\n"
+    ]
   end
 
   def encrypt(message, key = generate_key_number, date = Date.today)
@@ -46,14 +59,14 @@ class Enigma
 
   def total_offsets(key, date)
     key_array = [create_key_a, create_key_b, create_key_c, create_key_d]
-    zipped_key = last_4(date).zip(key_array)
+    zipped_key = last_4.zip(key_array)
     zipped_key.map do |x|
       x.sum
     end
   end
 
   def msg_subarrays(message)
-    message.downcase.chars.each_slice(4).to_a
+    message.chars.each_slice(4).to_a
   end
 
   def translate_array(sub_arrays)
@@ -91,7 +104,7 @@ class Enigma
   def create_key_d
     @key_chars[3..4].join.to_i
   end
-
+  
   # These methods calculate the additional date offsets
   def convert_date
     (@date.strftime('%d') + @date.strftime('%m') + @date.strftime('%y')).to_i
@@ -101,7 +114,7 @@ class Enigma
     (convert_date ** 2)
   end
 
-  def last_4(date = Date.new(1987, 7, 31))
+  def last_4
     square_date.digits.reverse[-4..-1]
   end
 
