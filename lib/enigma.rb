@@ -23,7 +23,7 @@ class Enigma
       ")", "[", "]",
       "<", ">", ";",
       ":", "/", "?",
-      "|", "\\", "'",
+      "|", "'", "\\",
       "\n"
     ]
     @key_chars = []
@@ -67,7 +67,7 @@ class Enigma
   end
 
   def msg_subarrays(message)
-    message.downcase.chars.each_slice(4).to_a
+    message.chars.each_slice(4).to_a
   end
 
   def translate_array(sub_arrays)

@@ -15,7 +15,7 @@ class EnigmaTest < Minitest::Test
 
   def test_it_has_character_map
     e = Enigma.new
-    expected = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", ".", ",", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "[", "]", "<", ">", ";", ":", "/", "?", "|", "\\", "'", "\n"]
+    expected = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", ".", ",", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "[", "]", "<", ">", ";", ":", "/", "?", "|", "'", "\\", "\n"]
     actual = e.character_map
     assert_equal(expected, actual)
   end
@@ -92,7 +92,7 @@ class EnigmaTest < Minitest::Test
   def test_it_encrypts
     e = Enigma.new
     actual = e.encrypt("test", "12345", Date.new(1987, 7, 31))
-    assert_equal("b4t8", actual)
+    assert_equal("@4'M", actual)
   end
 
   def test_it_encrypts_with_one_arg
@@ -107,7 +107,7 @@ class EnigmaTest < Minitest::Test
   def test_it_encrypts_with_caps
     e = Enigma.new
     actual = e.encrypt("TEST", "12345", Date.new(1987, 7, 31))
-    assert_equal("b4t8", actual)
+    assert_equal("oe6(", actual)
     e_2 = Enigma.new
     actual = e_2.encrypt("TEST")
     assert_equal(4, actual.length)
@@ -125,7 +125,7 @@ class EnigmaTest < Minitest::Test
 
   def test_it_decrypts
     e = Enigma.new
-    actual = e.decrypt("b4t8", "12345", Date.new(1987, 7, 31))
+    actual = e.decrypt("@4'M", "12345", Date.new(1987, 7, 31))
     assert_equal("test", actual)
   end
 
