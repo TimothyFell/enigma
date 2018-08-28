@@ -11,7 +11,7 @@ class Enigma
                 :key
 
   def initialize
-#I'd like to ask permission to use a shuffled character map.
+    @key_chars = []
     @character_map = [
       *("A".."Z"),
       *("a".."z"),
@@ -26,7 +26,6 @@ class Enigma
       "|", "'", "\\",
       "\n"
     ]
-    @key_chars = []
   end
 
   def encrypt(message, key = generate_key_number, date = Date.today)

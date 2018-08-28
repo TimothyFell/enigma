@@ -1,7 +1,4 @@
-## enigma_test.rb
-
 require 'pry'
-
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/enigma'
