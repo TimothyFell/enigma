@@ -54,6 +54,36 @@ class Enigma
     translated_array.flatten.join
   end
 
+  def crack(msg, date = Date.today)
+    array_of_arrays = msg_subarrays(msg)
+    length = array_of_arrays[-1].count
+    second_to_last = array_of_arrays[-2]
+    last = array_of_arrays[-1]
+    relevant = []
+    relevant << last
+    relevant << second_to_last[(-4 + length)..-1]
+    crack_key = ["n", "d", ".", "."].rotate(4 - length)
+    
+    else
+
+  end
+
+
+
+  def crack_array(relevants)
+    relevants.map do |subarray|
+      crack_subarrays(subarray)
+    end
+  end
+
+  def crack_subarrays(subarray)
+    subarray.map.with_index do |char, i|
+
+
+
+
+  end
+
   def msg_subarrays(message)
     message.chars.each_slice(4).to_a
   end
