@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+require './test_helper'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -11,7 +14,7 @@ class OffsetsTest < Minitest::Test
   end
 
   def test_case_name
-    
+
   end
 
   def test_it_can_total_offsets

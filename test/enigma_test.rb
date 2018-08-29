@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+require './test_helper'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -54,6 +57,29 @@ class EnigmaTest < Minitest::Test
     e = Enigma.new
     actual = e.decrypt(e.encrypt("test", "12345"), "12345")
     assert_equal("test", actual)
+  end
+
+  def test_it_creates_msg_subarrays
+    e = Enigma.new
+    expected = [["t", "h", "i", "s"], [" ", "o", "n", "e"]]
+    actual = e.msg_subarrays("this one")
+    assert_equal(expected, actual)
+  end
+
+  def test_it_translates_array
+    e = Enigma.new
+    e.encrypt("test", "12345", Date.new(1987, 7, 31))
+    expected = [["@", "7", ")", "L"], ["|", "@", ";", "'"]]
+    actual = e.translate_array([["t", "h", "i", "s"], [" ", "o", "n", "e"]])
+    assert_equal(expected, actual)
+  end
+
+  def test_it_translates_subarrays
+    e = Enigma.new
+    e.encrypt("test", "12345", Date.new(1987, 7, 31))
+    expected = ["@", "7", ")", "L"]
+    actual = e.translate_subarrays(["t", "h", "i", "s"])
+    assert_equal(expected, actual)
   end
 
 end

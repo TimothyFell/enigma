@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+require './test_helper'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
