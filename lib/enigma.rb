@@ -92,24 +92,21 @@ class Enigma
   def crack_key(array, date)
     cracked_key = []
     key_set = crack_key_rotations(array, date)
-    # binding.pry
-    cracked_key << key_set.shift.abs.to_s
+    cracked_key << key_set.shift.to_s
     key_set.each do |x|
-      # binding.pry
-      cracked_key << x.abs.digits.last.to_s
+      cracked_key << x.digits[0].to_s
     end
     @cracked_key = cracked_key.join
-    # binding.pry
   end
 
   def crack_key_rotations(array, date)
     total_rotations = crack_rotations(array)
     d = DateOffsets.new(date)
     date_rotations = d.date_offset_array
-    negatize_indexes(date_rotations)
-    # binding.pry
-    cracked_key_rotations = total_rotations.zip(date_rotations)
-    cracked_key_rotations.map do |x|
+    negative_date_rotations = negatize_indexes(date_rotations)
+
+    cracked_key_rotations = total_rotations.zip(negative_date_rotations)
+    cracked_key_rotations.map! do |x|
       x.sum
     end
   end
@@ -118,11 +115,12 @@ class Enigma
     big_indexes_array.map! do |subarray|
       get_indexes(subarray)
     end
-    # binding.pry
+
     compare_array = [big_indexes_array[0],
     negatize_indexes(big_indexes_array[1])]
-    # binding.pry
+
     zipped_array = compare_array[0].zip(compare_array[1])
+    # binding.pry
     zipped_array.map do |x|
       y = x.sum
       if y < 0
@@ -130,7 +128,7 @@ class Enigma
       end
       y
     end
-    binding.pry
+
   end
 
   def negatize_indexes(array)

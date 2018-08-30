@@ -6,9 +6,9 @@ require 'pry'
 
 e = Enigma.new
 
-p "Testing"
-p e.encrypt("Testing", "12345")
-p e.crack(e.encrypt("Testing", "12345"), Date.today)
+p "Testing ..end.."
+p e.encrypt("Testing ..end..", "12345")
+p e.crack(e.encrypt("Testing ..end..", "12345"), Date.today)
 
 
 # it can start by using the same methods to break the entire encrypted message into sub-arrays of 4 digits each and return the index values of the final 7 characters.
